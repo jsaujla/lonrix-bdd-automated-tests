@@ -1,16 +1,12 @@
 package com.lonrix.qa.steps;
 
-import com.lonrix.qa.utils.Constant;
-import com.lonrix.qa.utils.ReadConfig;
+import com.lonrix.qa.common.PropertiesManager;
+import com.lonrix.qa.common.WebDriverManager;
+import com.lonrix.qa.constant.Constant;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.opera.OperaDriver;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +24,7 @@ public class Hooks {
     private static final Logger LOGGER = LoggerFactory.getLogger(Hooks.class);
 
     //********** OBJECT DECLARATION **********
-    private DependencyContainer dependencyContainer;
+    private final DependencyContainer dependencyContainer;
 
     //********** CONSTRUCTOR **********
     public Hooks(DependencyContainer dependencyContainer) {
@@ -40,8 +36,7 @@ public class Hooks {
         LOGGER.info("XXXXXXXXXX" + " START TEST SCENARIO " + "XXXXXXXXXX");
         LOGGER.info("Scenario: " + scenario.getName());
 
-        setConfig();
-        initializeWebDriver();
+        dependencyContainer.webDriverManager = new WebDriverManager(setConfig());
         maximizeWindow();
         setImplicitlyWait();
     }
@@ -55,7 +50,7 @@ public class Hooks {
     /**
      * Read config properties file based on the parameter provided by command-line execution.
      */
-    private void setConfig() {
+    private PropertiesManager setConfig() {
         String environmentType = System.getProperty("config.file", Constant.CONFIG_PROD);
         String configFilePath = null;
         switch (environmentType) {
@@ -71,42 +66,15 @@ public class Hooks {
             default:
                 configFilePath = Constant.PROD_CONFIG_PROPERTIES_DIRECTORY;
         }
-        dependencyContainer.configFile = new ReadConfig(configFilePath);
-    }
-
-    /**
-     * Launch/start web browser window and WebDriver session
-     */
-    private void initializeWebDriver() {
-        if(dependencyContainer.configFile.getWebBrowser().toLowerCase().contains("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            dependencyContainer.driver = new ChromeDriver();
-        } else if(dependencyContainer.configFile.getWebBrowser().toLowerCase().contains("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
-            dependencyContainer.driver = new FirefoxDriver();
-        } else if(dependencyContainer.configFile.getWebBrowser().toLowerCase().contains("ie")
-                || dependencyContainer.configFile.getWebBrowser().toLowerCase().contains("internet explorer")) {
-            WebDriverManager.iedriver().setup();
-            dependencyContainer.driver = new InternetExplorerDriver();
-        } else if(dependencyContainer.configFile.getWebBrowser().toLowerCase().contains("edge")) {
-            WebDriverManager.edgedriver().setup();
-            dependencyContainer.driver = new EdgeDriver();
-        } else if(dependencyContainer.configFile.getWebBrowser().toLowerCase().contains("opera")) {
-            WebDriverManager.operadriver().setup();
-            dependencyContainer.driver = new OperaDriver();
-        } else {
-            LOGGER.error("Value of 'web.browser' in 'config properties' file should be: chrome, firefox, ie, edge or opera");
-            throw new IllegalArgumentException("Value of 'web.browser' in 'config properties' file should be: chrome, firefox, ie, edge or opera");
-        }
-        LOGGER.info("Web browser (" + dependencyContainer.configFile.getWebBrowser() + ") launched successfully");
+        return dependencyContainer.propertiesManager = new PropertiesManager(configFilePath);
     }
 
     /**
      * Maximize web browser window.
      */
     private void maximizeWindow() {
-        if(dependencyContainer.configFile.isWindowsMaximize()) {
-            dependencyContainer.driver.manage().window().maximize();
+        if(dependencyContainer.propertiesManager.getPropertyAsBoolean("windows.maximize")) {
+            dependencyContainer.webDriverManager.getDriver().manage().window().maximize();
             LOGGER.info("Browser windows maximized successfully");
         }
     }
@@ -115,9 +83,9 @@ public class Hooks {
      * Set implicitly wait.
      */
     private void setImplicitlyWait() {
-        if(dependencyContainer.configFile.getImplicitlyWait() != 0) {
-            dependencyContainer.driver.manage().timeouts().implicitlyWait(dependencyContainer.configFile.getImplicitlyWait(), TimeUnit.SECONDS);
-            LOGGER.info("ImplicitlyWait ("+ dependencyContainer.configFile.getImplicitlyWait() +" second(s)) implemented successfully");
+        if(dependencyContainer.propertiesManager.getPropertyAsLong("implicitly.wait") != 0) {
+            dependencyContainer.webDriverManager.getDriver().manage().timeouts().implicitlyWait(dependencyContainer.propertiesManager.getPropertyAsLong("implicitly.wait"), TimeUnit.SECONDS);
+            LOGGER.info("ImplicitlyWait ["+ dependencyContainer.propertiesManager.getPropertyAsLong("implicitly.wait") +" second(s)] implemented successfully");
         }
     }
 
@@ -125,8 +93,8 @@ public class Hooks {
      * Quit web browser window(s) and WebDriver session.
      */
     private void quitWebDriver() {
-        if (dependencyContainer.driver != null) {
-            dependencyContainer.driver.quit();
+        if (dependencyContainer.webDriverManager.getDriver() != null) {
+            dependencyContainer.webDriverManager.getDriver().quit();
             LOGGER.info("Web browser quit successfully");
         }
     }

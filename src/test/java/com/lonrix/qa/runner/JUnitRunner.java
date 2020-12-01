@@ -8,19 +8,19 @@ import io.cucumber.junit.CucumberOptions;
  * <h1>Test Runner</h1>
  * This class is used to add Cucumber options and run the tests.
  * <p>
- * @author Jaspal
+ * @author Jaspal Aujla
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features="src/test/resources/features",
         glue={"com.lonrix.qa.steps"},
         monochrome = true,
+        tags={"@juno"},
         plugin={"pretty",
                 "html:target/cucumber-html-report",
                 "json:target/cucumber.json",
-        },
-        tags={"@juno"}
+        }
 )
-public class TestRunner {
+public class JUnitRunner {
 
 }

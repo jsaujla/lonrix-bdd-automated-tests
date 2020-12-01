@@ -13,15 +13,15 @@
 * Environment configuration through command-line
 * Logging
 
-### Further/future plan ###
-* Page Object Model implementation
+### Implementation 01/12/2020 ###
+* Page Object Model implementation > Room to add title verification in constructor. Room to add logging.
 * Clean duplicate code
-* Selenium objects centralization
+* Selenium objects centralization > Room to refactor class to keep different browser initialization in different classes. Room to improve Java Doc.
 * Logging
 * Exception handling
 * Java Docs
-* TestNG based runner class
-* Project design/architecture diagram
+* TestNG based runner class > Room to add TestNG XML
+* Project design/architecture diagram > Not done yet
 
 ### Test scripts scope ###
 * JunoViewer > Views > Strip Map View > SVG handling at UI level. There is no implementation to handle business logics/rules.

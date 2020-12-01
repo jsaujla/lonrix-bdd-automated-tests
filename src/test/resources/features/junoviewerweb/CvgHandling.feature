@@ -4,11 +4,11 @@ Feature: Demonstrate the possibility to automate CVG at UI level.
   Background:
     Given I am at JunoViewer login page
     And I login JunoViewer with user: "${juno.viewer.valid.username}" and password: "${juno.viewer.valid.password}"
+    #And I login JunoViewer with user: "${juno.viewer.valid.username}", password: "${juno.viewer.valid.password}" and rememberme: "false"
 
 
   Scenario: Verify content in cells for NetworkA - Displayed Cells Only
     When I goto to "Views > Strip Map View"
-    And I click on Choose Location button
     And I choose location and click OK
       |Network: |SH:|RS:|Section Id:|From Km:|To Km:|
       |Network A|   |103|           |        |      |
@@ -29,7 +29,6 @@ Feature: Demonstrate the possibility to automate CVG at UI level.
 
   Scenario: Verify content in cells for NetworkA - All Cells
     When I goto to "Views > Strip Map View"
-    And I click on Choose Location button
     And I choose location and click OK
       |Network: |SH:|RS:|Section Id:|From Km:|To Km:|
       |Network A|   |103|           |        |      |
@@ -50,7 +49,6 @@ Feature: Demonstrate the possibility to automate CVG at UI level.
 
   Scenario: Verify default content in Naasra for NetworkA
     When I goto to "Views > Strip Map View"
-    And I click on Choose Location button
     And I choose location and click OK
       |Network: |SH:|RS:|Section Id:|From Km:|To Km:|
       |Network A|   |103|           |        |      |

@@ -1,7 +1,8 @@
-package com.lonrix.qa.utils;
+package com.lonrix.qa.constant;
 
 /**
- * <h1>Directory Paths</h1>
+ * <h1>Constant Objects</h1>
+ * This class is used to keep static objects/variables.
  * This class is used to keep the path of all directories at a single place.
  * <p>
  * @author Jaspal
