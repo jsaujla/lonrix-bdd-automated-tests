@@ -62,8 +62,8 @@ public class WebDriverManager {
      * @return WebDriverWait
      */
     public WebDriverWait getWebDriverWait(int... waitTimeInSeconds) {
-        LOGGER.info("Get WebDriverWait");
         int waitTime = waitTimeInSeconds.length > 0 ? waitTimeInSeconds[0] : webDriverWaitTime;
+        LOGGER.info("Get WebDriverWait with [" + waitTime + " second(s)]");
         return new WebDriverWait(driver, waitTime);
     }
 

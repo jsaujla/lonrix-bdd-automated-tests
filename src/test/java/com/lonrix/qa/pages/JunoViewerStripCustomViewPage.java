@@ -1,7 +1,6 @@
 package com.lonrix.qa.pages;
 
 import com.lonrix.qa.common.WebDriverManager;
-import com.lonrix.qa.steps.Steps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -17,10 +16,10 @@ import java.util.List;
  * <p>
  * @author Jaspal Aujla
  */
-public class StripCustomViewPage {
+public class JunoViewerStripCustomViewPage {
 
     //********** LOGGER OBJECT DECLARATION/INITIALIZATION **********
-    private static final Logger LOGGER = LoggerFactory.getLogger(StripCustomViewPage.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JunoViewerStripCustomViewPage.class);
 
     private final WebDriverManager webDriverManager;
 
@@ -33,7 +32,7 @@ public class StripCustomViewPage {
     private final By chooseLocationOkButtonLocator = By.id("btnDoDataScopeChange");
     private final By chooseLocationCloseButtonLocator = By.id("btnCancelDataScopeChange");
 
-    public StripCustomViewPage(WebDriverManager webDriverManager) {
+    public JunoViewerStripCustomViewPage(WebDriverManager webDriverManager) {
         this.webDriverManager = webDriverManager;
     }
 

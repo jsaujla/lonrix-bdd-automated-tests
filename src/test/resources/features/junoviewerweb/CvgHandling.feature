@@ -3,8 +3,8 @@ Feature: Demonstrate the possibility to automate CVG at UI level.
 
   Background:
     Given I am at JunoViewer login page
-    And I login JunoViewer with user: "${juno.viewer.valid.username}" and password: "${juno.viewer.valid.password}"
-    #And I login JunoViewer with user: "${juno.viewer.valid.username}", password: "${juno.viewer.valid.password}" and rememberme: "false"
+    #And I login JunoViewer with user: "${juno.viewer.valid.username}" and password: "${juno.viewer.valid.password}"
+    And I login JunoViewer with user: "${juno.viewer.valid.username}", password: "${juno.viewer.valid.password}" and rememberme: "false"
 
 
   Scenario: Verify content in cells for NetworkA - Displayed Cells Only

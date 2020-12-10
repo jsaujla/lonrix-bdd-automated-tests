@@ -6,7 +6,6 @@ import com.lonrix.qa.constant.Constant;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-//import io.github.bonigarcia.wdm.WebDriverManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * <h1>Test Common Steps</h1>
  * This class is used to manage common steps of test scenarios, which need to be performed before and after each test.
  * <p>
- * @author Jaspal
+ * @author Jaspal Aujla
  */
 public class Hooks {
 
@@ -26,7 +25,11 @@ public class Hooks {
     //********** OBJECT DECLARATION **********
     private final DependencyContainer dependencyContainer;
 
-    //********** CONSTRUCTOR **********
+    /**
+     * Parameterized Constructor
+     *
+     * @param dependencyContainer
+     */
     public Hooks(DependencyContainer dependencyContainer) {
         this.dependencyContainer = dependencyContainer;
     }
@@ -39,6 +42,7 @@ public class Hooks {
         dependencyContainer.webDriverManager = new WebDriverManager(setConfig());
         maximizeWindow();
         setImplicitlyWait();
+        setPageLoadTimeout();
     }
 
     @After()
@@ -86,6 +90,17 @@ public class Hooks {
         if(dependencyContainer.propertiesManager.getPropertyAsLong("implicitly.wait") != 0) {
             dependencyContainer.webDriverManager.getDriver().manage().timeouts().implicitlyWait(dependencyContainer.propertiesManager.getPropertyAsLong("implicitly.wait"), TimeUnit.SECONDS);
             LOGGER.info("ImplicitlyWait ["+ dependencyContainer.propertiesManager.getPropertyAsLong("implicitly.wait") +" second(s)] implemented successfully");
+        } else {
+            LOGGER.info("ImplicitlyWait not implement");
+        }
+    }
+
+    private void setPageLoadTimeout() {
+        if(dependencyContainer.propertiesManager.getPropertyAsLong("page.load.timeout") != 0) {
+            dependencyContainer.webDriverManager.getDriver().manage().timeouts().pageLoadTimeout(dependencyContainer.propertiesManager.getPropertyAsLong("page.load.timeout"), TimeUnit.SECONDS);
+            LOGGER.info("Page load timeout ["+ dependencyContainer.propertiesManager.getPropertyAsLong("page.load.timeout") +" second(s)] implemented successfully");
+        } else {
+            LOGGER.info("Page load timeout not implement");
         }
     }
 

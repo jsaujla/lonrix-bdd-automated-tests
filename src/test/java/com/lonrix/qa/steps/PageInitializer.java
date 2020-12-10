@@ -3,9 +3,15 @@ package com.lonrix.qa.steps;
 import com.lonrix.qa.common.PropertiesManager;
 import com.lonrix.qa.common.WebDriverManager;
 import com.lonrix.qa.pages.JunoViewerDashboardHeader;
-import com.lonrix.qa.pages.JunoViewerSigninPage;
-import com.lonrix.qa.pages.StripCustomViewPage;
+import com.lonrix.qa.pages.JunoViewerLoginPage;
+import com.lonrix.qa.pages.JunoViewerStripCustomViewPage;
 
+/**
+ * <h1>Page Initializer</h1>
+ * This class is used to initialize page object classes and provide the page objects to step classes.
+ * <p>
+ * @author Jaspal Aujla
+ */
 public class PageInitializer {
 
     //********** OBJECT DECLARATION **********
@@ -13,9 +19,9 @@ public class PageInitializer {
     protected WebDriverManager webDriverManager;
     protected PropertiesManager propertiesManager;
 
-    private JunoViewerSigninPage junoViewerSigninPage;
+    private JunoViewerLoginPage junoViewerLoginPage;
     private JunoViewerDashboardHeader junoViewerDashboardHeader;
-    private StripCustomViewPage stripCustomViewPage;
+    private JunoViewerStripCustomViewPage junoViewerStripCustomViewPage;
 
     /**
      * Parameterized Constructor
@@ -28,11 +34,11 @@ public class PageInitializer {
         this.propertiesManager = dependencyContainer.propertiesManager;
     }
 
-    protected JunoViewerSigninPage getSigninPage() {
-        if(junoViewerSigninPage == null) {
-            return junoViewerSigninPage = new JunoViewerSigninPage(webDriverManager);
+    protected JunoViewerLoginPage getSigninPage() {
+        if(junoViewerLoginPage == null) {
+            return junoViewerLoginPage = new JunoViewerLoginPage(webDriverManager);
         }
-        return junoViewerSigninPage;
+        return junoViewerLoginPage;
     }
 
     protected JunoViewerDashboardHeader getJunoViewerDashboardHeader() {
@@ -43,11 +49,11 @@ public class PageInitializer {
         }
     }
 
-    protected StripCustomViewPage getStripCustomViewPage() {
-        if(stripCustomViewPage == null) {
-            return stripCustomViewPage = new StripCustomViewPage(webDriverManager);
+    protected JunoViewerStripCustomViewPage getStripCustomViewPage() {
+        if(junoViewerStripCustomViewPage == null) {
+            return junoViewerStripCustomViewPage = new JunoViewerStripCustomViewPage(webDriverManager);
         } else {
-            return stripCustomViewPage;
+            return junoViewerStripCustomViewPage;
         }
     }
 }

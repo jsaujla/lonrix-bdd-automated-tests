@@ -14,14 +14,24 @@
 * Logging
 
 ### Implementation 01/12/2020 ###
-* Page Object Model implementation > Room to add title verification in constructor. Room to add logging.
+* Page Object Model implementation
 * Clean duplicate code
-* Selenium objects centralization > Room to refactor class to keep different browser initialization in different classes. Room to improve Java Doc.
+* Selenium objects centralization
 * Logging
 * Exception handling
 * Java Docs
-* TestNG based runner class > Room to add TestNG XML
-* Project design/architecture diagram > Not done yet
+
+### Room for improvement ###
+* WebDriverManager > Improve JavaDoc with suggestions to use methods
+* WebDriverManager > Few methods (Select, Actions, etc.) implementation can be managed under try catch block
+* WebDriverManager > Browser initialization methods can be managed in separate classes
+* Page Objects Classes > Add title/url verification in constructor. Add logging
+* Page Objects Classes > It's good to wait until textToBePresentInElementLocated while working with Select
+* TestNgRunner > Integrate TestNG XML
+* Add screenshot when test fail
+* Prepare project design/architecture diagram
+* Refer Selenium Dev recent documentation add modify implementation as per latest trends, if required.
+* Update project dependencies to the latest versions
 
 ### Test scripts scope ###
 * JunoViewer > Views > Strip Map View > SVG handling at UI level. There is no implementation to handle business logics/rules.

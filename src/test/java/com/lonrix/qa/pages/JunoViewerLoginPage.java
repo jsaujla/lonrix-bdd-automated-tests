@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
  * <p>
  * @author Jaspal Aujla
  */
-public class JunoViewerSigninPage {
+public class JunoViewerLoginPage {
 
     private final WebDriverManager webDriverManager;
 
@@ -19,7 +19,7 @@ public class JunoViewerSigninPage {
     private final By rememberMeCheckboxLocator = By.id("chkRememberMe");
     private final By signinButtonLocator = By.id("btnSubmit");
 
-    public JunoViewerSigninPage(WebDriverManager webDriverManager) {
+    public JunoViewerLoginPage(WebDriverManager webDriverManager) {
         this.webDriverManager = webDriverManager;
     }
 

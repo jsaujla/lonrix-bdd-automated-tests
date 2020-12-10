@@ -5,7 +5,7 @@ package com.lonrix.qa.constant;
  * This class is used to keep static objects/variables.
  * This class is used to keep the path of all directories at a single place.
  * <p>
- * @author Jaspal
+ * @author Jaspal Aujla
  */
 public class Constant {
 

@@ -1,6 +1,5 @@
 package com.lonrix.qa.steps;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.slf4j.Logger;
@@ -11,63 +10,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <h1>Steps definition</h1>
+ * <h1>Steps definition - Strip Custom View</h1>
  * This class includes implementation of step definition correspondence to feature files.
  * <p>
- * @author Jaspal
+ * @author Jaspal Aujla
  */
-public class Steps extends PageInitializer {
+public class JunoViewerStripCustomViewSteps extends PageInitializer {
 
     //********** LOGGER OBJECT DECLARATION/INITIALIZATION **********
-    private static final Logger LOGGER = LoggerFactory.getLogger(Steps.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JunoViewerStripCustomViewSteps.class);
 
-    //********** CONSTRUCTOR **********
-    public Steps(DependencyContainer dependencyContainer) {
+    /**
+     * Parameterized Constructor
+     *
+     * @param dependencyContainer
+     */
+    public JunoViewerStripCustomViewSteps(DependencyContainer dependencyContainer) {
         super(dependencyContainer);
     }
 
     //********** STEP DEFINITION METHODS **********
-
-    @Given("I am at JunoViewer login page")
-    public void i_am_at_JunoViewer_login_page() {
-        LOGGER.info("Given I am at JunoViewer login page");
-        getSigninPage().open(propertiesManager.getProperty("juno.viewer.base.url"));
-    }
-
-    @Given("I login JunoViewer with user: {string} and password: {string}")
-    public void i_login_JunoViewer_with_user_and_password(String username, String password) {
-        LOGGER.info("Given I login JunoViewer with user: {string} and password: {string}");
-        loginStep(username, password, false);
-    }
-
-    @Given("I login JunoViewer with user: {string}, password: {string} and rememberme: {string}")
-    public void i_login_JunoViewer_with_user_password_and_rememberme(String username, String password, String rememberMe) {
-        LOGGER.info("Given I login JunoViewer with user: {string}, password: {string} and rememberme: {string}");
-        loginStep(username, password, Boolean.parseBoolean(rememberMe));
-    }
-
-    private void loginStep(String username, String password, boolean rememberMe) {
-        String usernameLocal;
-        String passwordLocal;
-        if(username.startsWith("${") && username.endsWith("}")) {
-            usernameLocal = propertiesManager.getProperty(username.replace("${", "").replace("}", ""));
-        } else {
-            usernameLocal = username;
-        }
-        if(password.startsWith("${") && password.endsWith("}")) {
-            passwordLocal = propertiesManager.getProperty(password.replace("${", "").replace("}", ""));
-        } else {
-            passwordLocal = password;
-        }
-        getSigninPage().signin(usernameLocal, passwordLocal, rememberMe);
-    }
-
-    @When("I goto to {string}")
-    public void i_goto_to(String string) throws InterruptedException {
-        LOGGER.info("When I goto to {string}");
-        getJunoViewerDashboardHeader().navigateToViewsThen("Strip Map View", "");
-        Thread.sleep(500);
-    }
 
     @When("I choose location and click OK")
     public void i_choose_location_and_click_OK(io.cucumber.datatable.DataTable dataTable) {
